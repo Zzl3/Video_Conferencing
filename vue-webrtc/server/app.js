@@ -17,6 +17,8 @@ const argv = process.argv[2]; // 设置argv可开启http,默认https
 if (argv === "--http") {
   agreement = "http";
 }
+
+
 const server = require(agreement).Server(options, app);
 const WebSocketServer = require("ws").Server;
 const wss = new WebSocketServer({ server });
@@ -100,6 +102,8 @@ function getRoomUser(ws) {
 
 const config = {
   port: 8103,
+  host: '0.0.0.0' // 绑定到容器内部的所有IP地址
 };
-server.listen(config.port);
-console.log("https://localhost:" + config.port + "/");
+server.listen(config.port, config.host, () => {
+  console.log(`Server running at https://${config.host}:${config.port}/`);
+});
