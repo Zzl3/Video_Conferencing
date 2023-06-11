@@ -178,6 +178,27 @@ export default {
                     console.error(error);
                     return;
                 }
+                //添加会议记录
+                try {
+                    const url = `${host}/Videouser/addUserVideo`;
+                    const params = {
+                        userphone: user,
+                        videoid: videoId
+                    };
+                    const config = {
+                        headers: {
+                            'Accept': '*/*'
+                        }
+                    };
+                    const response = await axios.post(url, null, {
+                        params,
+                        ...config
+                    });
+                    console.log(response.data.data);
+                } catch (error) {
+                    console.error(error);
+                }
+                
                 try {
                     const url = `${host}/video/updateoraddVideo`;
                     const params = {
@@ -194,31 +215,12 @@ export default {
                         params,
                         ...config
                     });
-                    console.log(response.data);
+                    console.log(response.data.data);
+                    despTion.value = response.data.data;
                 } catch (error) {
                     console.error(error);
                 }
-                try {
-                    const url = `${host}/Videouser/addUserVideo`;
-                    const params = {
-                        userphone: user,
-                        videoid: videoId
-                    };
-                    const config = {
-                        headers: {
-                            'Accept': '*/*'
-                        }
-                    };
-                    const response = await axios.post(url, null, {
-                        params,
-                        ...config
-                    });
-                    console.log(response.data);
-                } catch (error) {
-                    console.error(error);
-                }
-
-
+               
                 // 调取摄像头
                 const userConstraints = {
                     video: true,
